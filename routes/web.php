@@ -15,20 +15,12 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-/* Route::get('/', HomeController::class);
 
-Route::controller(CursoController::class)->group(function(){
-    Route::get('cursos','index')->name('cursos.index');
-    Route::get('cursos/create','create')->name('cursos.create');
-    Route::get('cursos/{curso}','show')->name('cursos.show');
-});
- */
+Route::get('/', HomeController::class)->name('home'); /* Página principal */
 
-Route::get('/', HomeController::class);
+/* Route::get('cursos', [CursoController::class, 'index'])->name('cursos.index'); */ /* al poner "->name('cursos.index')" le estamos dando un nombre específico a la ruta para poder utilizarla después, por ejemplo, cuando creamos un enlace para ir a una página de nuestra aplicación */
 
-Route::get('cursos', [CursoController::class, 'index'])->name('cursos.index');
-
-Route::get('cursos/create', [CursoController::class, 'create'])->name('cursos.create');
+/* Route::get('cursos/create', [CursoController::class, 'create'])->name('cursos.create');
 
 Route::post('cursos', [CursoController::class, 'store'])->name('cursos.store');
 
@@ -38,13 +30,7 @@ Route::get('cursos/{curso}/edit',[CursoController::class, 'edit'])->name('cursos
 
 Route::put('cursos/{curso}', [CursoController::class, 'update'])->name('cursos.update');
 
+Route::delete('cursos/{curso}', [CursoController::class, 'destroy'])->name('cursos.destroy'); */ /* ruta elimina registros */ 
 
-/*  Route::get('cursos/{curso}/{categoria?}', function($curso, $categoria = null){
-    if($categoria){
-        return "Bienvenido al curso $curso, de la categoría $categoria";
-    }else{
-        return "Bienvenido al curso: $curso";
-    }
-    
-});
- */
+Route::resource('cursos', CursoController::class); /* con esta línea englobamos automáticamente las 7 líneas anteriores, y dejamos el código más limpio */
+Route::view('nosotros', 'nosotros')->name('nosotros'); /* 1º parametro la URL, 2º nombre de la vista, que va a buscar en la carpeta view*/

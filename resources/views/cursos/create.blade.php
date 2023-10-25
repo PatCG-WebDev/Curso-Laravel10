@@ -23,6 +23,18 @@
         @enderror
         <br>
 
+        <label>
+            Slug:
+            <br>
+            <input type="text" name="slug" value="{{old('slug')}}"> {{-- el método old va a recuperar lo que habíamos escrito en este campo cuando no se hayan completado todos los campor requeridos --}}
+        </label>
+
+        @error('slug') {{-- en esto nos salta un mensaje cuando dejamos vacío un campo requerido --}}
+            <br>
+            <span>*{{$message}}</span>
+            <br>
+        @enderror
+        <br>
 
         <label>
             Descripción

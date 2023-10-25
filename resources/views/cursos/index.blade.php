@@ -8,10 +8,10 @@
     <ul>
         @foreach ($cursos as $curso)
             <li>
-                <a href="{{route('cursos.show', $curso->id)}}">{{$curso->name}}</a>
+                <a href="{{route('cursos.show', $curso)}}">{{$curso->name}}"</a>
             </li>
         @endforeach
     </ul>
 
-    {{$cursos->links()}}
+    {{$cursos->links()}} {{-- Paginamos. Mostramos el menú para movernos por las diferentes páginas de los registos. --}}
 @endsection

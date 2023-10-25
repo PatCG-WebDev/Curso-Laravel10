@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCurso;
 use App\Models\Curso;
+use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -20,15 +21,9 @@ class CursoController extends Controller //los nombres que designan los siguient
         return view('cursos.create');
     }
 
-    public function store(StoreCurso $request){
+    public function store(StoreCurso $request){ /* es una instancia de la clase StoreCurso */
 
-        $curso = new Curso();
-
-        $curso->name = $request->name;
-        $curso->descripcion = $request->descripcion;
-        $curso->categoria = $request->categoria;
-
-        $curso->save();
+        $curso = Curso::create( $request->all());
 
         return redirect()->route('cursos.show', $curso);
 
@@ -48,18 +43,25 @@ class CursoController extends Controller //los nombres que designan los siguient
     public function update(Request $request, Curso $curso){
 
         $request->validate([
-            'name'=>'required|min:3',
-            'descripcion'=>'required',
-            'categoria'=>'required',
+            'name' => 'required|min:3',
+            'slug' => 'required|unique:cursos,slug,' . $curso->id, /* con esta regla de validación lo que va a tener en cuenta es el id del curso para no comparar el slug con el que ya tenía ese mismo curso, sólo con el resto de cursos */
+            'descripcion' => 'required',
+            'categoria' => 'required',
         ]);
 
-
-        $curso->name = $request->name;
-        $curso->descripcion = $request->descripcion;
-        $curso->categoria = $request->categoria;
-
-        $curso->save();
+        $curso->update($request->all());
 
         return redirect()->route('cursos.show', $curso);
+    }
+
+    public function destroy(Curso $curso){
+        $curso->delete();
+
+        return redirect()->route('cursos.index', $curso);
+    }
+
+    public function test(Curso $curso){
+
+        return view('cursos.test', compact('curso'));
     }
 }
