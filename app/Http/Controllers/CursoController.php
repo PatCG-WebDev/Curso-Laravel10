@@ -44,7 +44,7 @@ class CursoController extends Controller //los nombres que designan los siguient
 
         $request->validate([
             'name' => 'required|min:3',
-            'slug' => 'required|unique:cursos,slug,' . $curso->id, /* con esta regla de validación lo que va a tener en cuenta es el id del curso para no comparar el slug con el que ya tenía ese mismo curso, sólo con el resto de cursos */
+            'slug' => 'required|unique:cursos,slug' . $curso->id, /* con esta regla de validación lo que va a tener en cuenta es el id del curso para no comparar el slug con el que ya tenía ese mismo curso, sólo con el resto de cursos */
             'descripcion' => 'required',
             'categoria' => 'required',
         ]);
