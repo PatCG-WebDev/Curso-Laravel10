@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\ContactanosController;
 use App\Http\Controllers\CursoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Mail\ContactanosMailable;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +37,14 @@ Route::delete('cursos/{curso}', [CursoController::class, 'destroy'])->name('curs
 
 Route::resource('cursos', CursoController::class); /* con esta línea englobamos automáticamente las 7 líneas anteriores, y dejamos el código más limpio */
 Route::view('nosotros', 'nosotros')->name('nosotros'); /* 1º parametro la URL, 2º nombre de la vista, que va a buscar en la carpeta view*/
+
+/* Route::get('contactanos', function(){
+
+    Mail::to('paticia@gmail.com')->send(new ContactanosMailable);
+    return "Mensaje enviado";
+
+})->name('contactanos'); */
+
+
+Route::get('contactanos', [ContactanosController::class,'index'])->name('contactanos.index');
+Route::post('contactanos', [ContactanosController::class, 'store'])->name('contactanos.store');
